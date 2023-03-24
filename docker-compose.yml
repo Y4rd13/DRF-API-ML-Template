@@ -1,0 +1,73 @@
+# INFO:
+#   CELERY:
+#     - commands: UserWarning: Using settings.DEBUG leads to a memory leak, never use this setting in production environments!
+#         Tip in prod: Use APP_ENV: production
+#     - CELERYD_CONCURRENCY:
+#         Number of CPU cores. The number of concurrent worker processes/threads/green threads executing tasks.
+#         If you’re doing mostly I/O you can have more processes, but if mostly CPU-bound, try to keep it close to the number of CPUs on your machine.
+#         If not set, the number of CPUs/cores on the host will be used.
+#         https://docs.celeryq.dev/en/stable/userguide/configuration.html#worker-concurrency
+#   REDIS:
+#    - init: to update containers on the fly with minimal downtime
+#         https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/
+#    - WARNING: you have Transparent Huge Pages (THP) support enabled in your kernel.
+#         This will create latency and memory usage issues with Redis.
+#         FIX: run the commands as root on HOST
+#            'echo never > /sys/kernel/mm/transparent_hugepage/enabled'
+#            'echo never > /sys/kernel/mm/transparent_hugepage/defrag'
+#         and add it to your /etc/rc.local in order to retain the setting after a reboot.
+#         Redis must be restarted after THP is disabled.
+#         https://github.com/docker-library/redis/issues/55#issuecomment-433030237
+
+version: "3.9"
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+  environment: &env
+    CELERY_BROKER_URL: redis://redis:6379
+    CELERY_CONCURRENCY: 1
+    #MONGODB_URL: mongodb://root:rootpassword@mongodb:27017
+    PYTHONUNBUFFERED: 1
+    APP_ENV: production # development or production
+  image: my-custom-api:1.0.0
+  depends_on:
+    redis:
+      condition: service_healthy
+
+services:
+  app:
+    <<: *app
+    command: sh -c "python myproject/manage.py makemigrations && python myproject/manage.py migrate && python myproject/manage.py runserver 0.0.0.0:8000"
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+
+  celery:
+    <<: *app
+    environment: *env
+    command: celery --workdir myproject -A myproject worker -l INFO -Q high
+    volumes:
+      - .:/app
+  celery_medium:
+    <<: *app
+    environment: *env
+    command: celery --workdir myproject -A myproject worker -l INFO -Q medium
+    volumes:
+      - .:/app
+
+  redis:
+    image: redis:5-alpine
+    volumes:
+      - redis:/data
+    healthcheck:
+      test: redis-cli ping
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    init: true
+volumes:
+  redis:
+  mongodb:
