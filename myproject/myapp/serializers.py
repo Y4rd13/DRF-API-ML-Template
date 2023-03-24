@@ -115,3 +115,7 @@ class ErrorResponseSerializer(Serializer):
     code = IntegerField()
     status = CharField()
     error = CharField()
+
+class MyCustomSerializer(Serializer):
+    my_variable = CharField(required=True, max_length=250)
+    other_varible = JSONField(required=False, allow_black=True)
