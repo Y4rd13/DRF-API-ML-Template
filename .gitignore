@@ -1,0 +1,16 @@
+# local configuration files
+env
+*.pyc
+*/__pycache__/
+db.sqlite3
+
+# system files
+.DS_Store
+Thumbs.db
+
+# media
+media/ 
+static/
+
+# vscode
+.vscode/
