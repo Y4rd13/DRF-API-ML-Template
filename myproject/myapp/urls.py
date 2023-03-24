@@ -8,7 +8,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path('v1/service/customservice', MyCustomView.as_view(), name='my_custom_view'),
+    path('v1/custom/service', MyCustomView.as_view(), name='my_custom_view'),
     path('token', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh', CustomTokenRefreshView.as_view(), name='token_refresh'),
     path('user/create', UserCreate.as_view(), name='user_create'),
