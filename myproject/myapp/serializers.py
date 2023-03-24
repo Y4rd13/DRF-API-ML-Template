@@ -118,4 +118,5 @@ class ErrorResponseSerializer(Serializer):
 
 class MyCustomSerializer(Serializer):
     my_variable = CharField(required=True, max_length=250)
-    other_varible = JSONField(required=False, allow_black=True)
+    other_variable_1 = CharField(required=False, max_length=250, allow_blank=True)
+    other_variable_2 = JSONField(required=False)

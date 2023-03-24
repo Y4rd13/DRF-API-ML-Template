@@ -1,7 +1,5 @@
 import time
 import pandas as pd
-import redshift_connector
-from pymongo import MongoClient
 from django.conf import settings
 from traceback import print_exc
 from logging import basicConfig, DEBUG, debug

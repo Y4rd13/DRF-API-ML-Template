@@ -11,7 +11,7 @@ load_dotenv(dotenv_path)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Authentication user model
-AUTH_USER_MODEL = 'myproject.CustomUser'
+AUTH_USER_MODEL = 'myapp.CustomUser'
 
 # The environment the app runs in: development/production/test etc.
 APP_ENV = os.getenv('APP_ENV', 'development')
