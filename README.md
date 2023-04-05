@@ -47,6 +47,8 @@
 This project is a Custom Template for DRF Rest-API for ML/DL purpose, with using a custom service for the endpoint. The API is built in Django REST framework, Redis, Celery, MongoDB, Simple-JWT and Docker (docker-compose).
 Using this template, you can easily create a new API with a custom service with a few steps.
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 # Getting Started
 
 ## Prerequisites
@@ -67,11 +69,15 @@ Using this template, you can easily create a new API with a custom service with 
    docker-compose -f docker-compose up
    ```
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 # Usage of the API
 
 ## Authentication
 
 This API uses authentication through API Key. The security scheme type is API Key and the header parameter name is Authorization. There are two types of tokens: token and token_create, both are required.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ## **Endpoints**
 
@@ -99,6 +105,8 @@ Create a new access token.
 - 400:
   - Error response
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ### **POST api/token/refresh**
 
 Create a new access token from a refresh token.
@@ -121,6 +129,8 @@ Create a new access token from a refresh token.
   - `access`: string (Access) non-empty
 - 400:
   - Error response
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### **POST api/user/create**
 
@@ -160,6 +170,8 @@ Create a new user account.
     "error": "string"
   }
   ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### **POST /api/v1/custom/service**
 
@@ -264,3 +276,21 @@ fetch("http://0.0.0.0:8000/api/v1/custom/service", requestOptions)
     "error": "string"
   }
   ```
+  <p align="right">(<a href="#top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+
+# Contributing
+
+For future contributors, please see follow the next steps:
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+6. Wait for the Pull Request to be reviewed and merged
+
+_Note: Don't forget to update your local main branch before PR to merge._
+
+<p align="right">(<a href="#top">back to top</a>)</p>
