@@ -39,6 +39,7 @@
               </ul>
         </ul>
     </li>
+    <li><a href="#contributing">Contributing</a></li>
   </ol>
 </details>
 
